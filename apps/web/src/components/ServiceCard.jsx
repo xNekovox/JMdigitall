@@ -39,13 +39,6 @@ function ServiceCard({ title, image, description, photoPrice, videoPrice, revers
             </motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
             
-            {isFeatured && (
-              <div className="absolute top-6 left-6">
-                <span className="px-4 py-2 bg-primary text-primary-foreground font-bold tracking-widest uppercase text-xs rounded-full shadow-[0_0_20px_rgba(212,175,55,0.5)]">
-                  Servicio Estrella
-                </span>
-              </div>
-            )}
           </div>
 
           {/* Content Side */}
@@ -78,7 +71,7 @@ function ServiceCard({ title, image, description, photoPrice, videoPrice, revers
                     <div className="glass-panel p-6 rounded-xl relative overflow-hidden group">
                       <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full transform translate-x-8 -translate-y-8 transition-transform group-hover:translate-x-0 group-hover:translate-y-0" />
                       <Film className="w-6 h-6 text-primary mb-4" />
-                      <h4 className="text-sm uppercase tracking-widest text-muted-foreground mb-1">Videografía</h4>
+                      <h4 className="text-sm uppercase tracking-widest text-muted-foreground mb-1">Video</h4>
                       <p className="text-2xl font-serif text-foreground">{videoPrice}</p>
                     </div>
                   )}
@@ -86,13 +79,17 @@ function ServiceCard({ title, image, description, photoPrice, videoPrice, revers
               )}
 
               <Link to="/contacto">
-                <Button size="lg" className={`px-8 py-6 text-base font-medium group transition-all duration-300 ${
-                  isFeatured 
-                    ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_rgba(212,175,55,0.3)]' 
-                    : 'bg-card hover:bg-white/5 border border-border text-foreground hover:border-primary'
-                }`}>
-                  Más información
-                  <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />
+                <Button
+                  size="lg"
+                  className="group relative overflow-hidden rounded-full border border-foreground/10 bg-foreground/[0.03] px-8 py-6 text-base font-semibold text-foreground shadow-[0_10px_30px_rgba(15,23,42,0.08)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-400/40 hover:bg-gradient-to-r hover:from-amber-50 hover:to-orange-50 hover:text-amber-950 hover:shadow-[0_16px_38px_rgba(217,119,6,0.18)]"
+                >
+                  <span className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.18),transparent_45%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span className="relative flex items-center gap-3">
+                    <span>Más información</span>
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full border border-amber-500/20 bg-white/80 text-amber-700 transition-all duration-300 group-hover:translate-x-1 group-hover:border-amber-500/30 group-hover:bg-amber-500 group-hover:text-white">
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </span>
                 </Button>
               </Link>
             </motion.div>

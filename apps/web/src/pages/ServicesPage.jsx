@@ -59,7 +59,7 @@ function ServicesPage() {
       image: 'https://images.unsplash.com/photo-1574717024757-c1ec4d86ae82',
       description: 'El tiempo degrada las cintas, pero nosotros rescatamos tus memorias. Digitalizamos formatos análogos (VHS, miniDV, 8mm) a resoluciones modernas (MP4) con limpieza de imagen y estabilización técnica.',
       photoPrice: null,
-      videoPrice: 'Desde $350 MXN / cinta',
+      videoPrice: 'Desde $150 MXN / cinta',
       reverse: false,
       isFeatured: false
     }

@@ -7,7 +7,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import { POCKETBASE_API_URL } from '@/lib/pocketbaseClient';
+
+const WHATSAPP_NUMBER = '525513538825';
 
 function BookingForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,10 +17,9 @@ function BookingForm() {
     email: '',
     phone: '',
     service_type: '',
+    event_date: '',
     additional_service: '',
     notes: '',
-    booking_date: new Date().toISOString().split('T')[0], // Default to today to satisfy DB requirement
-    booking_time: '12:00' // Default time to satisfy DB requirement
   });
 
   const serviceOptions = [
@@ -55,44 +55,36 @@ function BookingForm() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${POCKETBASE_API_URL}/api/quote-request`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
+      const whatsappMessage = [
+        'Hola, quiero solicitar una cotizacion.',
+        '',
+        `Nombre: ${formData.client_name}`,
+        `Correo: ${formData.email}`,
+        `Telefono: ${formData.phone}`,
+        `Servicio principal: ${formData.service_type}`,
+        `Fecha del evento: ${formData.event_date || 'No especificada'}`,
+        `Servicio adicional: ${formData.additional_service || 'No especificado'}`,
+        `Notas: ${formData.notes || 'Sin notas adicionales'}`
+      ].join('\n');
 
-      if (!response.ok) {
-        let message = 'Error al enviar la solicitud. Por favor, inténtelo de nuevo.';
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
 
-        try {
-          const errorData = await response.json();
-          if (errorData?.message) {
-            message = errorData.message;
-          }
-        } catch {
-          // Ignore JSON parsing errors and use fallback message.
-        }
-
-        throw new Error(message);
-      }
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
       
-      toast.success('Cotización solicitada exitosamente. Nos pondremos en contacto pronto.');
+      toast.success('Te estamos redirigiendo a WhatsApp para enviar tu cotizacion.');
       
       setFormData({
         client_name: '',
         email: '',
         phone: '',
         service_type: '',
+        event_date: '',
         additional_service: '',
         notes: '',
-        booking_date: new Date().toISOString().split('T')[0],
-        booking_time: '12:00'
       });
     } catch (error) {
       console.error('Booking submission error:', error);
-      toast.error(error.message || 'Error al enviar la solicitud. Por favor, inténtelo de nuevo.');
+      toast.error('Error al preparar el mensaje de WhatsApp. Por favor, inténtelo de nuevo.');
     } finally {
       setIsSubmitting(false);
     }
@@ -168,6 +160,20 @@ function BookingForm() {
             </SelectContent>
           </Select>
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="event_date" className="text-sm font-medium text-muted-foreground">
+          Fecha del evento
+        </Label>
+        <Input
+          id="event_date"
+          name="event_date"
+          type="date"
+          value={formData.event_date}
+          onChange={handleChange}
+          className="bg-input text-foreground border-border focus-visible:ring-primary"
+        />
       </div>
 
       <div className="space-y-2">
