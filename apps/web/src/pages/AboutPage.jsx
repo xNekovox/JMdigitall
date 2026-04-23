@@ -29,7 +29,7 @@ function AboutPage() {
             >
               <h1 className="font-serif text-4xl md:text-5xl mb-6 text-foreground">Nuestra Historia</h1>
               <p className="max-w-3xl text-lg text-muted-foreground leading-relaxed mb-12">
-                En JMdigitall, somos apasionados por la imagen y el sonido. Con años de experiencia en el sector audiovisual, nos dedicamos a capturar la esencia de cada momento, producto o marca, entregando resultados que superan las expectativas.
+                En JMdigitall somos expertos en el ámbito de los eventos sociales, con más de 30 años de experiencia capturando momentos que merecen perdurar. Nos distingue el profesionalismo, la sensibilidad para contar cada historia y el compromiso de entregar un trabajo impecable en bodas, XV años, bautizos y celebraciones especiales. Combinamos técnica, experiencia y trato cercano para que cada proyecto refleje emoción, calidad y confianza.
               </p>
               <div className="cinematic-image w-full rounded-2xl overflow-hidden border border-border shadow-2xl aspect-video">
                 <img 
