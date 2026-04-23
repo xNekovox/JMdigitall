@@ -12,22 +12,24 @@ function Header() {
     { name: 'Inicio', path: '/' },
     { name: 'Servicios', path: '/servicios' },
     { name: 'Portafolio', path: '/portafolio' },
-    { name: 'Acerca de', path: '/acerca-de' },
-    { name: 'Contacto', path: '/contacto' }
+    { name: 'Contacto', path: '/contacto' },
+    { name: 'Acerca de', path: '/acerca-de' }
   ];
 
   const isActive = (path) => location.pathname === path;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
-      <nav className="luxury-container py-4">
+      <nav className="luxury-container py-2.5">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
-            <img 
-              src="https://horizons-cdn.hostinger.com/6b131142-d810-4459-aca1-47994b6212e4/7d008f64ea98ddfcfb999fda6118fd7a.png" 
-              alt="JMdigitall Logo" 
-              className="h-8 w-auto object-contain group-hover:opacity-80 transition-opacity"
-            />
+            <span className="flex h-12 items-center overflow-hidden rounded-2xl border border-border/60 bg-card/70 px-1.5 shadow-sm backdrop-blur-sm transition-all duration-200 group-hover:border-primary/20 group-hover:shadow-md sm:h-14">
+              <img 
+                src="/images/Logo.png" 
+                alt="JMdigitall Logo" 
+                className="h-[calc(100%-0.25rem)] w-auto object-contain drop-shadow-[0_6px_18px_rgba(15,23,42,0.12)] transition-transform duration-200 group-hover:scale-[1.03]"
+              />
+            </span>
             <span className="font-serif text-xl font-semibold tracking-tight text-foreground group-hover:text-primary transition-colors duration-200">
               JMdigitall
             </span>

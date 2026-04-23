@@ -12,12 +12,14 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <img 
-                src="https://horizons-cdn.hostinger.com/6b131142-d810-4459-aca1-47994b6212e4/7d008f64ea98ddfcfb999fda6118fd7a.png" 
-                alt="JMdigitall Logo" 
-                className="h-8 w-auto object-contain"
-              />
+            <Link to="/" className="flex items-center gap-4 mb-6">
+              <span className="flex h-16 items-center rounded-2xl border border-border/60 bg-background/70 px-3 shadow-sm backdrop-blur-sm">
+                <img 
+                  src="/images/Logo.png" 
+                  alt="JMdigitall Logo" 
+                  className="h-12 w-auto object-contain drop-shadow-[0_6px_18px_rgba(15,23,42,0.12)]"
+                />
+              </span>
               <span className="font-serif text-2xl font-semibold text-primary">JMdigitall</span>
             </Link>
             <p className="text-sm leading-relaxed text-muted-foreground">
@@ -84,7 +86,7 @@ function Footer() {
 
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>&copy; {currentYear} JMdigitall. Todos los derechos reservados.</p>
-          <div className="flex gap-6">
+          <div className="flex gap-6 md:pr-24 lg:pr-28">
             <Link to="/politica-privacidad" className="hover:text-primary transition-colors duration-200">
               Política de Privacidad
             </Link>

@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -181,9 +182,15 @@ function BookingForm() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full md:w-auto px-12 py-6 text-base font-semibold transition-all duration-200 active:scale-[0.98] bg-primary text-primary-foreground hover:bg-primary/90"
+        className="group relative w-full overflow-hidden rounded-full border border-primary/20 bg-gradient-to-r from-primary via-blue-500 to-cyan-400 px-12 py-6 text-base font-semibold text-primary-foreground shadow-[0_14px_35px_rgba(37,99,235,0.32)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(37,99,235,0.4)] active:scale-[0.98] disabled:hover:translate-y-0"
       >
-        {isSubmitting ? 'Enviando...' : 'Solicita tu cotización'}
+        <span className="absolute inset-0 bg-[linear-gradient(120deg,transparent_15%,rgba(255,255,255,0.28)_50%,transparent_85%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <span className="relative flex items-center justify-center gap-3">
+          <span>{isSubmitting ? 'Enviando...' : 'Solicita tu cotización'}</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/18 ring-1 ring-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1">
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </span>
       </Button>
     </form>
   );

@@ -6,6 +6,7 @@ import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import PortfolioCategoryCard from '@/components/PortfolioCategoryCard.jsx';
 import PortfolioGalleryModal from '@/components/PortfolioGalleryModal.jsx';
+import PageHeaderDivider from '@/components/PageHeaderDivider.jsx';
 
 // Data strictly constructed based on the prompt's provided images
 const portfolioData = [
@@ -129,6 +130,40 @@ const portfolioData = [
     ]
   },
   {
+    id: 'photobooks',
+    title: 'Photobooks',
+    isVideo: false,
+    thumbnail: 'https://images.unsplash.com/photo-1516542076529-1ea3854896f2',
+    items: [
+      'https://images.unsplash.com/photo-1516542076529-1ea3854896f2',
+      'https://images.unsplash.com/photo-1455390582262-044cdead277a',
+      'https://images.unsplash.com/photo-1455390582262-044cdead277a',
+      'https://images.unsplash.com/photo-1497633762265-9d179a990aa6',
+      'https://images.unsplash.com/photo-1516979187457-637abb4f9353',
+      'https://images.unsplash.com/photo-1481627834876-b7833e8f5570',
+      'https://images.unsplash.com/photo-1507842217343-583bb7270b66',
+      'https://images.unsplash.com/photo-1512820790803-83ca734da794',
+      'https://images.unsplash.com/photo-1521587760476-6c12a4b040da'
+    ]
+  },
+  {
+    id: 'foto-estudio',
+    title: 'Foto estudio',
+    isVideo: false,
+    thumbnail: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32',
+    items: [
+      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32',
+      'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4',
+      'https://images.unsplash.com/photo-1524504388940-b1c1722653e1',
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9',
+      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e',
+      'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f',
+      'https://images.unsplash.com/photo-1464863979621-258859e62245',
+      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f'
+    ]
+  },
+  {
     id: 'producto',
     title: 'Producto',
     isVideo: false,
@@ -205,9 +240,10 @@ function PortfolioPage() {
       <Header />
 
       <main className="pt-24 bg-background min-h-screen">
+        <PageHeaderDivider />
         {/* Header Section */}
         <section className="editorial-spacing relative overflow-hidden">
-          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
           <div className="luxury-container text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -231,7 +267,6 @@ function PortfolioPage() {
                   key={category.id}
                   category={category}
                   index={index}
-                  isFeatured={category.id === 'social-media'}
                   onClick={() => setSelectedCategoryIndex(index)}
                 />
               ))}

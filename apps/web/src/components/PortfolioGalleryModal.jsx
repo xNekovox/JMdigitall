@@ -75,7 +75,7 @@ function PortfolioGalleryModal({ isOpen, category, onClose, onNext, onPrev }) {
         </div>
 
         {/* Gallery Grid */}
-        <div className="flex-1 px-4 md:px-8 pb-24 max-w-7xl mx-auto w-full pt-12">
+        <div className="flex-1 px-4 md:px-8 pb-16 max-w-7xl mx-auto w-full pt-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {category.items.map((itemUrl, idx) => (
               <motion.div
@@ -102,24 +102,24 @@ function PortfolioGalleryModal({ isOpen, category, onClose, onNext, onPrev }) {
               </motion.div>
             ))}
           </div>
-        </div>
 
-        {/* Bottom Navigation */}
-        <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background to-transparent flex justify-center gap-6 pointer-events-none z-40">
-          <button
-            onClick={onPrev}
-            className="pointer-events-auto flex items-center gap-2 px-6 py-3 rounded-full bg-card/80 backdrop-blur-md border border-border text-foreground hover:text-primary hover:border-primary/50 transition-all shadow-lg"
-          >
-            <ChevronLeft className="w-5 h-5" />
-            <span className="text-sm font-medium uppercase tracking-wide hidden md:inline">Anterior</span>
-          </button>
-          <button
-            onClick={onNext}
-            className="pointer-events-auto flex items-center gap-2 px-6 py-3 rounded-full bg-card/80 backdrop-blur-md border border-border text-foreground hover:text-primary hover:border-primary/50 transition-all shadow-lg"
-          >
-            <span className="text-sm font-medium uppercase tracking-wide hidden md:inline">Siguiente</span>
-            <ChevronRight className="w-5 h-5" />
-          </button>
+          {/* Bottom Navigation */}
+          <div className="mt-10 flex flex-col items-center gap-4 border-t border-border/60 pt-8 md:flex-row md:justify-center md:gap-6">
+            <button
+              onClick={onPrev}
+              className="flex items-center gap-2 px-6 py-3 rounded-full bg-card/80 backdrop-blur-md border border-border text-foreground hover:text-primary hover:border-primary/50 transition-all shadow-lg"
+            >
+              <ChevronLeft className="w-5 h-5" />
+              <span className="text-sm font-medium uppercase tracking-wide">Anterior</span>
+            </button>
+            <button
+              onClick={onNext}
+              className="flex items-center gap-2 px-6 py-3 rounded-full bg-card/80 backdrop-blur-md border border-border text-foreground hover:text-primary hover:border-primary/50 transition-all shadow-lg"
+            >
+              <span className="text-sm font-medium uppercase tracking-wide">Siguiente</span>
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Fullscreen Single Item View */}

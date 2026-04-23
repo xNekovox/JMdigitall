@@ -5,9 +5,19 @@ import { motion } from 'framer-motion';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import ServiceCard from '@/components/ServiceCard.jsx';
+import PageHeaderDivider from '@/components/PageHeaderDivider.jsx';
 
 function ServicesPage() {
   const services = [
+    {
+      title: 'Social',
+      image: 'https://images.unsplash.com/photo-1519741497674-611481863552',
+      description: 'Cobertura audiovisual de eventos sociales con una mirada elegante y sensible. Documentamos bodas, XV años, bautizos y celebraciones especiales capturando los momentos clave, los detalles y la emoción real de cada encuentro.',
+      photoPrice: 'Desde $3,200 MXN',
+      videoPrice: 'Desde $5,500 MXN',
+      reverse: true,
+      isFeatured: false
+    },
     {
       title: 'Retrato Profesional',
       image: 'https://images.unsplash.com/photo-1544212408-c711b7c19b92',
@@ -65,6 +75,7 @@ function ServicesPage() {
       <Header />
 
       <main className="pt-24 bg-background min-h-screen">
+        <PageHeaderDivider />
         {/* Page Intro Header */}
         <section className="py-24 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
@@ -74,9 +85,6 @@ function ServicesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <span className="text-primary text-sm font-medium tracking-widest uppercase mb-4 block">
-                Nuestra Experiencia
-              </span>
               <h1 className="font-serif mb-6 text-foreground">Soluciones Audiovisuales</h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-light">
                 Cada proyecto es único. Diseñamos nuestras producciones para adaptarse a tu visión, utilizando equipo de vanguardia y una perspectiva cinematográfica.

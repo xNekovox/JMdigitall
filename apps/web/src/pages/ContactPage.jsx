@@ -6,6 +6,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import BookingForm from '@/components/BookingForm.jsx';
+import PageHeaderDivider from '@/components/PageHeaderDivider.jsx';
 
 function ContactPage() {
   return (
@@ -18,9 +19,11 @@ function ContactPage() {
       <Header />
 
       <main className="pt-24 bg-background">
+        <PageHeaderDivider />
         {/* Page Header */}
-        <section className="editorial-spacing">
-          <div className="luxury-container text-center">
+        <section className="editorial-spacing relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
+          <div className="luxury-container text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
