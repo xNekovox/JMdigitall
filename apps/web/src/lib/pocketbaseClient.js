@@ -6,4 +6,4 @@ const pocketbaseClient = new Pocketbase(POCKETBASE_API_URL);
 
 export default pocketbaseClient;
 
-export { pocketbaseClient };
+export { pocketbaseClient, POCKETBASE_API_URL };

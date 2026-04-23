@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
-import pb from '@/lib/pocketbaseClient';
+import { POCKETBASE_API_URL } from '@/lib/pocketbaseClient';
 
 function BookingForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,7 +55,28 @@ function BookingForm() {
     setIsSubmitting(true);
 
     try {
-      await pb.collection('bookings').create(formData, { $autoCancel: false });
+      const response = await fetch(`${POCKETBASE_API_URL}/api/quote-request`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        let message = 'Error al enviar la solicitud. Por favor, inténtelo de nuevo.';
+
+        try {
+          const errorData = await response.json();
+          if (errorData?.message) {
+            message = errorData.message;
+          }
+        } catch {
+          // Ignore JSON parsing errors and use fallback message.
+        }
+
+        throw new Error(message);
+      }
       
       toast.success('Cotización solicitada exitosamente. Nos pondremos en contacto pronto.');
       
@@ -71,7 +92,7 @@ function BookingForm() {
       });
     } catch (error) {
       console.error('Booking submission error:', error);
-      toast.error('Error al enviar la solicitud. Por favor, inténtelo de nuevo.');
+      toast.error(error.message || 'Error al enviar la solicitud. Por favor, inténtelo de nuevo.');
     } finally {
       setIsSubmitting(false);
     }
