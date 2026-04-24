@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -9,7 +9,7 @@ function Footer() {
   return (
     <footer className="bg-card text-card-foreground border-t border-border">
       <div className="luxury-container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-4 mb-6">
@@ -55,31 +55,6 @@ function Footer() {
               <Link to="/portafolio" className="hover:text-primary transition-colors">Portafolio</Link>
               <Link to="/acerca-de" className="hover:text-primary transition-colors">Acerca de</Link>
               <Link to="/contacto" className="hover:text-primary transition-colors">Contacto</Link>
-            </div>
-          </div>
-
-          {/* Social */}
-          <div className="md:col-span-1">
-            <h4 className="font-medium text-sm tracking-wider uppercase mb-6 text-primary">Síguenos</h4>
-            <div className="flex gap-4">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all duration-200"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-4 w-4" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all duration-200"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-4 w-4" />
-              </a>
             </div>
           </div>
         </div>
