@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import PageHeaderDivider from '@/components/PageHeaderDivider.jsx';
+import { createArtworkSrc } from '@/lib/portfolioAssets.js';
 
 function AboutPage() {
   return (
@@ -33,7 +34,7 @@ function AboutPage() {
               </p>
               <div className="cinematic-image w-full rounded-2xl overflow-hidden border border-border shadow-2xl aspect-video">
                 <img 
-                  src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32" 
+                  src={createArtworkSrc({ theme: 'corporate', variant: 2, title: 'JMdigitall', subtitle: 'Equipo y experiencia' })}
                   alt="Equipo de cámara profesional" 
                   className="w-full h-full object-cover"
                 />

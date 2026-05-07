@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, LayoutGrid } from 'lucide-react';
-import VideoPlayer from '@/components/VideoPlayer.jsx';
+import PhotoComparisonSlider from '@/components/PhotoComparisonSlider.jsx';
+import VhsClip from '@/components/VhsClip.jsx';
 
 function PortfolioGalleryModal({ isOpen, category, onClose, onNext, onPrev }) {
   const [selectedItem, setSelectedItem] = useState(null); // For fullscreen single item view within modal
@@ -36,6 +37,40 @@ function PortfolioGalleryModal({ isOpen, category, onClose, onNext, onPrev }) {
   }, [isOpen, selectedItem, onClose, onNext, onPrev]);
 
   if (!isOpen || !category) return null;
+
+  const renderItem = (item, compact = false) => {
+    if (item.kind === 'comparison') {
+      return (
+        <PhotoComparisonSlider
+          beforeSrc={item.before}
+          afterSrc={item.after}
+          beforeLabel="Antes"
+          afterLabel="Después"
+          className={compact ? 'h-full' : ''}
+        />
+      );
+    }
+
+    if (item.kind === 'vhs') {
+      return (
+        <VhsClip
+          title={item.title}
+          subtitle={item.subtitle}
+          artwork={item.artwork}
+          compact={compact}
+        />
+      );
+    }
+
+    return (
+      <img
+        src={item.src}
+        alt={item.alt}
+        className="h-full w-full object-cover"
+        draggable="false"
+      />
+    );
+  };
 
   return (
     <AnimatePresence>
@@ -83,22 +118,12 @@ function PortfolioGalleryModal({ isOpen, category, onClose, onNext, onPrev }) {
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="aspect-[4/5] md:aspect-square hover-zoom-container rounded-xl cursor-pointer bg-card border border-border shadow-md"
+                className="hover-zoom-container rounded-xl cursor-pointer bg-card border border-border shadow-md overflow-hidden"
                 onClick={() => setSelectedItem(itemUrl)}
               >
-                {category.isVideo ? (
-                  <VideoPlayer src={itemUrl} />
-                ) : (
-                  <>
-                    <img 
-                      src={itemUrl} 
-                      alt={`${category.title} ${idx + 1}`} 
-                      className="hover-zoom-image"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </>
-                )}
+                <div className={`w-full ${itemUrl.kind === 'comparison' ? 'aspect-[4/5] md:aspect-square' : 'aspect-[4/5] md:aspect-square'}`}>
+                  {renderItem(itemUrl)}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -139,12 +164,27 @@ function PortfolioGalleryModal({ isOpen, category, onClose, onNext, onPrev }) {
               </button>
               
               <div className="relative w-full h-full max-w-6xl max-h-[85vh] flex items-center justify-center">
-                {category.isVideo ? (
-                  <VideoPlayer src={selectedItem} autoPlay />
+                {selectedItem.kind === 'comparison' ? (
+                  <div className="w-full max-w-6xl">
+                    <PhotoComparisonSlider
+                      beforeSrc={selectedItem.before}
+                      afterSrc={selectedItem.after}
+                      beforeLabel="Antes"
+                      afterLabel="Después"
+                    />
+                  </div>
+                ) : selectedItem.kind === 'vhs' ? (
+                  <div className="w-full max-w-5xl">
+                    <VhsClip
+                      title={selectedItem.title}
+                      subtitle={selectedItem.subtitle}
+                      artwork={selectedItem.artwork}
+                    />
+                  </div>
                 ) : (
-                  <img 
-                    src={selectedItem} 
-                    alt="Vista expandida" 
+                  <img
+                    src={selectedItem.src}
+                    alt={selectedItem.alt}
                     className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                   />
                 )}

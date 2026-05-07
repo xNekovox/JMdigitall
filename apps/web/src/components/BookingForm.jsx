@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
+import { bookingServiceOptions } from '@/lib/portfolioAssets.js';
 
 const WHATSAPP_NUMBER = '525513538825';
 
@@ -21,19 +22,6 @@ function BookingForm() {
     additional_service: '',
     notes: '',
   });
-
-  const serviceOptions = [
-    'Fotografía Social',
-    'Video Social',
-    'Fotografía Profesional',
-    'Video Profesional',
-    'Fotografía de Producto',
-    'Video de Producto',
-    'Fotografía Corporativa',
-    'Video Corporativa',
-    'Recuperación de Video Análogo',
-    'Paquete Personalizado'
-  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -152,7 +140,7 @@ function BookingForm() {
               <SelectValue placeholder="Seleccione un servicio principal" />
             </SelectTrigger>
             <SelectContent className="bg-card border-border">
-              {serviceOptions.map((service) => (
+              {bookingServiceOptions.map((service) => (
                 <SelectItem key={service} value={service} className="focus:bg-primary focus:text-primary-foreground">
                   {service}
                 </SelectItem>
