@@ -1,11 +1,57 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, SkipBack } from 'lucide-react';
+import { Pause, Play, SkipBack } from 'lucide-react';
 
-function VhsClip({ title, subtitle, artwork, compact = false }) {
+function VhsClip({ title, subtitle, src, poster, compact = false }) {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    setIsPlaying(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [src, poster]);
+
+  const togglePlayback = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      video.play().catch(() => {});
+      setIsPlaying(true);
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  };
+
   return (
-    <div className={`relative overflow-hidden rounded-2xl border border-white/10 bg-black ${compact ? 'aspect-[4/5]' : 'aspect-[16/10] md:aspect-[4/3]'}`}>
-      <img src={artwork} alt={title} className="absolute inset-0 h-full w-full object-cover opacity-70" draggable="false" />
+    <div
+      className={`relative overflow-hidden rounded-2xl border border-white/10 bg-black ${compact ? 'aspect-[4/5]' : 'aspect-[16/10] md:aspect-[4/3]'}`}
+      onClick={togglePlayback}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          togglePlayback();
+        }
+      }}
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        className="absolute inset-0 h-full w-full object-cover opacity-80"
+        playsInline
+        preload="metadata"
+        loop
+        muted
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      />
 
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.1),rgba(10,10,10,0.56)),repeating-linear-gradient(180deg,rgba(255,255,255,0.06)_0px,rgba(255,255,255,0.06)_1px,transparent_4px,transparent_7px)]" />
       <motion.div
@@ -30,7 +76,7 @@ function VhsClip({ title, subtitle, artwork, compact = false }) {
           whileTap={{ scale: 0.96 }}
           className="flex h-18 w-18 items-center justify-center rounded-full border border-white/25 bg-black/55 text-white backdrop-blur-md shadow-[0_0_40px_rgba(255,255,255,0.12)]"
         >
-          <Play className="ml-1 h-8 w-8" />
+          {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="ml-1 h-8 w-8" />}
         </motion.div>
       </div>
 

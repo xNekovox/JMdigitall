@@ -56,7 +56,8 @@ function PortfolioGalleryModal({ isOpen, category, onClose, onNext, onPrev }) {
         <VhsClip
           title={item.title}
           subtitle={item.subtitle}
-          artwork={item.artwork}
+          src={item.src}
+          poster={item.poster}
           compact={compact}
         />
       );
@@ -178,7 +179,8 @@ function PortfolioGalleryModal({ isOpen, category, onClose, onNext, onPrev }) {
                     <VhsClip
                       title={selectedItem.title}
                       subtitle={selectedItem.subtitle}
-                      artwork={selectedItem.artwork}
+                      src={selectedItem.src}
+                      poster={selectedItem.poster}
                     />
                   </div>
                 ) : (

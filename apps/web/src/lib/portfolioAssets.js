@@ -1,5 +1,16 @@
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
+const PUBLIC_IMAGE_BASE = '/images';
+const PUBLIC_VIDEO_BASE = '/videos';
+
+function publicImage(fileName) {
+  return `${PUBLIC_IMAGE_BASE}/${fileName}`;
+}
+
+function publicVideo(fileName) {
+  return `${PUBLIC_VIDEO_BASE}/${fileName}`;
+}
+
 function encodeSvg(svg) {
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 }
@@ -293,18 +304,8 @@ export function createArtworkSrc({ theme, variant = 0, title, subtitle, label })
 
 function createComparisonPair(variant = 0) {
   return {
-    before: createArtworkSrc({
-      theme: 'restorationBefore',
-      variant,
-      title: 'Antes',
-      subtitle: 'Foto desgastada y con daño',
-    }),
-    after: createArtworkSrc({
-      theme: 'restorationAfter',
-      variant,
-      title: 'Después',
-      subtitle: 'Restaurada y retocada',
-    }),
+    before: publicImage(`restauracion${variant + 1}-before.jpg`),
+    after: publicImage(`restauracion${variant + 1}-after.jpg`),
   };
 }
 
@@ -315,24 +316,15 @@ function createVhsClipData(variant = 0) {
     title: `Clip VHS ${variant + 1}`,
     subtitle: 'Fiesta nocturna · 5 segundos',
     palette: PALETTES.vhs,
-    artwork: createArtworkSrc({
-      theme: 'vhs',
-      variant,
-      title: `VHS ${variant + 1}`,
-      subtitle: 'Fiesta nocturna',
-    }),
+    src: publicVideo(`vhs${variant + 1}.mp4`),
+    poster: publicImage(`vhs${variant + 1}.jpg`),
   };
 }
 
-function makeImageSeries(theme, title, subtitle, count = 6) {
+function makeImageSeries(baseName, title, subtitle, count = 6) {
   return Array.from({ length: count }, (_, index) => ({
     kind: 'image',
-    src: createArtworkSrc({
-      theme,
-      variant: index,
-      title: `${title} ${index + 1}`,
-      subtitle,
-    }),
+    src: publicImage(`${baseName}${index + 1}.jpg`),
     alt: `${title} ${index + 1}`,
   }));
 }
@@ -359,7 +351,7 @@ export const portfolioCategories = [
     description: 'Coberturas elegantes y luminosas para historias que merecen quedarse para siempre.',
     isVideo: false,
     mediaType: 'image',
-    thumbnail: createArtworkSrc({ theme: 'wedding', variant: 0, title: 'Bodas', subtitle: 'Cobertura emotiva y elegante' }),
+    thumbnail: publicImage('wedding.jpg'),
     items: makeImageSeries('wedding', 'Bodas', 'Momentos íntimos y celebración', 6),
   },
   {
@@ -368,8 +360,8 @@ export const portfolioCategories = [
     description: 'Retratos de quinceaños con composición editorial, brillo y energía festiva.',
     isVideo: false,
     mediaType: 'image',
-    thumbnail: createArtworkSrc({ theme: 'quince', variant: 0, title: 'XV Años', subtitle: 'Glitter, gala y emoción' }),
-    items: makeImageSeries('quince', 'XV Años', 'Vestido, luz y celebración', 6),
+    thumbnail: publicImage('xv-anos.jpg'),
+    items: makeImageSeries('xv-anos', 'XV Años', 'Vestido, luz y celebración', 6),
   },
   {
     id: 'bautizos',
@@ -377,8 +369,8 @@ export const portfolioCategories = [
     description: 'Memorias familiares cálidas, limpias y delicadas para un día irrepetible.',
     isVideo: false,
     mediaType: 'image',
-    thumbnail: createArtworkSrc({ theme: 'baptism', variant: 0, title: 'Bautizos', subtitle: 'Tradición y luz suave' }),
-    items: makeImageSeries('baptism', 'Bautizos', 'Ambiente solemne y familiar', 6),
+    thumbnail: publicImage('bautizos.jpg'),
+    items: makeImageSeries('bautizos', 'Bautizos', 'Ambiente solemne y familiar', 6),
   },
   {
     id: 'presentaciones',
@@ -386,8 +378,8 @@ export const portfolioCategories = [
     description: 'Fiestas de 3 años con energía, color, globos y el encanto de una celebración familiar.',
     isVideo: false,
     mediaType: 'image',
-    thumbnail: createArtworkSrc({ theme: 'children', variant: 0, title: 'Fiesta infantil', subtitle: 'Cumple de 3 años' }),
-    items: makeImageSeries('children', 'Fiesta infantil', 'Globos, pastel y diversión', 6),
+    thumbnail: publicImage('presentaciones.jpg'),
+    items: makeImageSeries('presentaciones', 'Fiesta infantil', 'Globos, pastel y diversión', 6),
   },
   {
     id: 'retrato-profesional',
@@ -395,8 +387,8 @@ export const portfolioCategories = [
     description: 'Retratos con control de luz y dirección para una imagen cuidada y auténtica.',
     isVideo: false,
     mediaType: 'image',
-    thumbnail: createArtworkSrc({ theme: 'portrait', variant: 0, title: 'Retrato', subtitle: 'Luz de estudio y carácter' }),
-    items: makeImageSeries('portrait', 'Retrato', 'Iluminación y composición limpia', 6),
+    thumbnail: publicImage('retrato-profesional.jpg'),
+    items: makeImageSeries('retrato-profesional', 'Retrato', 'Iluminación y composición limpia', 6),
   },
   {
     id: 'social-media',
@@ -404,8 +396,8 @@ export const portfolioCategories = [
     description: 'Contenido dinámico pensado para destacar en redes sin perder estética de marca.',
     isVideo: false,
     mediaType: 'image',
-    thumbnail: createArtworkSrc({ theme: 'social', variant: 0, title: 'Social Media', subtitle: 'Scroll-stopping content' }),
-    items: makeImageSeries('social', 'Social', 'Vertical, directo y vibrante', 6),
+    thumbnail: publicImage('social-media.jpg'),
+    items: makeImageSeries('social-media', 'Social', 'Vertical, directo y vibrante', 6),
   },
   {
     id: 'photobooks',
@@ -413,8 +405,8 @@ export const portfolioCategories = [
     description: 'Álbumes y memorias impresas con tratamiento editorial y narrativa visual.',
     isVideo: false,
     mediaType: 'image',
-    thumbnail: createArtworkSrc({ theme: 'photobook', variant: 0, title: 'Photobooks', subtitle: 'Diseño y memoria tangible' }),
-    items: makeImageSeries('photobook', 'Photobook', 'Diseño editorial impreso', 6),
+    thumbnail: publicImage('photobooks.jpg'),
+    items: makeImageSeries('photobooks', 'Photobook', 'Diseño editorial impreso', 6),
   },
   {
     id: 'producto',
@@ -422,8 +414,8 @@ export const portfolioCategories = [
     description: 'Fotografía comercial que resalta textura, forma y valor percibido.',
     isVideo: false,
     mediaType: 'image',
-    thumbnail: createArtworkSrc({ theme: 'product', variant: 0, title: 'Producto', subtitle: 'Luz de catálogo premium' }),
-    items: makeImageSeries('product', 'Producto', 'E-commerce y campaña', 6),
+    thumbnail: publicImage('producto.jpg'),
+    items: makeImageSeries('producto', 'Producto', 'E-commerce y campaña', 6),
   },
   {
     id: 'corporativo',
@@ -431,8 +423,8 @@ export const portfolioCategories = [
     description: 'Imágenes empresariales con orden, claridad y presencia ejecutiva.',
     isVideo: false,
     mediaType: 'image',
-    thumbnail: createArtworkSrc({ theme: 'corporate', variant: 0, title: 'Corporativo', subtitle: 'Marca, equipo y estrategia' }),
-    items: makeImageSeries('corporate', 'Corporativo', 'Marca y comunicación interna', 6),
+    thumbnail: publicImage('corporativo.jpg'),
+    items: makeImageSeries('corporativo', 'Corporativo', 'Marca y comunicación interna', 6),
   },
   {
     id: 'recuperacion-video',
@@ -440,7 +432,7 @@ export const portfolioCategories = [
     description: 'Rescate de memorias análogas en formato VHS con estética de archivo y reproducción visual tipo clip.',
     isVideo: true,
     mediaType: 'vhs',
-    thumbnail: createArtworkSrc({ theme: 'vhs', variant: 0, title: 'VHS', subtitle: 'Recuperación de video' }),
+    thumbnail: publicImage('vhs.jpg'),
     items: makeVhsSeries(4),
   },
   {
@@ -449,7 +441,7 @@ export const portfolioCategories = [
     description: 'Restauramos imágenes antiguas para que vuelvan a verse limpias, nítidas y actuales.',
     isVideo: false,
     mediaType: 'comparison',
-    thumbnail: createArtworkSrc({ theme: 'restorationAfter', variant: 0, title: 'Restauración', subtitle: 'Antes y después' }),
+    thumbnail: publicImage('restauracion.jpg'),
     items: makeComparisonSeries(4),
   },
 ];
@@ -463,7 +455,7 @@ export const homePortfolioHighlights = portfolioCategories.map((category) => ({
 export const serviceCards = [
   {
     title: 'Social',
-    image: createArtworkSrc({ theme: 'wedding', variant: 1, title: 'Social', subtitle: 'Bodas, XV y bautizos' }),
+    image: publicImage('service-social-cover.jpg'),
     description: 'Cobertura audiovisual de eventos sociales con una mirada elegante y sensible. Documentamos bodas, XV años, bautizos y celebraciones especiales con énfasis en emoción, detalle y ritmo narrativo.',
     photoPrice: 'Desde $3,200 MXN',
     videoPrice: 'Desde $5,500 MXN',
@@ -472,7 +464,7 @@ export const serviceCards = [
   },
   {
     title: 'Retrato Profesional',
-    image: createArtworkSrc({ theme: 'portrait', variant: 1, title: 'Retrato', subtitle: 'Imagen personal y branding' }),
+    image: publicImage('service-retrato-cover.jpg'),
     description: 'Retratos de alta calidad para perfiles profesionales, marca personal y portafolios. Buscamos una imagen limpia, auténtica y sólida, con dirección de pose e iluminación precisa.',
     photoPrice: 'Desde $1,200 MXN',
     videoPrice: 'Desde $2,500 MXN',
@@ -481,7 +473,7 @@ export const serviceCards = [
   },
   {
     title: 'Cobertura de Eventos',
-    image: createArtworkSrc({ theme: 'children', variant: 1, title: 'Eventos', subtitle: 'Fiestas infantiles y celebraciones' }),
+    image: publicImage('service-eventos-cover.jpg'),
     description: 'Documentamos de manera discreta y elegante cada momento de tu evento. Desde fiestas infantiles hasta celebraciones privadas, aseguramos que la esencia y emoción queden inmortalizadas para siempre.',
     photoPrice: 'Desde $3,500 MXN',
     videoPrice: 'Desde $5,000 MXN',
@@ -490,7 +482,7 @@ export const serviceCards = [
   },
   {
     title: 'Trabajo Comercial',
-    image: createArtworkSrc({ theme: 'product', variant: 1, title: 'Producto', subtitle: 'Catálogo y campañas' }),
+    image: publicImage('service-producto-cover.jpg'),
     description: 'Imágenes potentes que venden. Creamos fotografía y video de producto pensados para e-commerce, catálogos y campañas publicitarias, con foco en textura, forma y valor visual.',
     photoPrice: 'Desde $2,800 MXN',
     videoPrice: 'Desde $4,500 MXN',
@@ -499,7 +491,7 @@ export const serviceCards = [
   },
   {
     title: 'Contenido Social',
-    image: createArtworkSrc({ theme: 'social', variant: 1, title: 'Contenido social', subtitle: 'Vertical y dinámico' }),
+    image: publicImage('service-contenido-social-cover.jpg'),
     description: 'Contenido vibrante y dinámico diseñado para dominar redes sociales. Formatos verticales, reels y fotografía con intención visual para potenciar tu marca personal o negocio.',
     photoPrice: 'Desde $2,000 MXN',
     videoPrice: 'Desde $3,500 MXN',
@@ -508,7 +500,7 @@ export const serviceCards = [
   },
   {
     title: 'Recuperación de Video',
-    image: createArtworkSrc({ theme: 'vhs', variant: 1, title: 'VHS', subtitle: 'Rescate de video análogo' }),
+    image: publicImage('service-vhs-cover.jpg'),
     description: 'El tiempo degrada las cintas, pero nosotros rescatamos tus memorias. Digitalizamos formatos análogos con una reproducción visual inspirada en el archivo original y estética VHS.',
     photoPrice: null,
     videoPrice: 'Desde $150 MXN / cinta',
@@ -517,7 +509,7 @@ export const serviceCards = [
   },
   {
     title: 'Recuperación y Retoque de Foto',
-    image: createArtworkSrc({ theme: 'restorationAfter', variant: 1, title: 'Restauración', subtitle: 'Antes y después' }),
+    image: publicImage('service-restauracion-cover.jpg'),
     description: 'Restauramos fotografías antiguas, corregimos daño por tiempo y hacemos retoque fino para devolverles nitidez, color y presencia sin perder su esencia original.',
     photoPrice: 'Desde $280 MXN / foto',
     videoPrice: null,
